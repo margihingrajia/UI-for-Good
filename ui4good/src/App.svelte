@@ -1,47 +1,44 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import EventCard from './lib/components/EventCard.svelte';
+  import BottomNav from './lib/components/BottomNav.svelte';
+  import FloatingButton from './lib/components/FloatingButton.svelte';
+
+  const events = [
+    { title: "Community Gardening", description: "Help maintain the local park garden.", date: "Nov 25, 10:00 AM" },
+    { title: "Book Club Meetup", description: "Discuss 'The Great Gatsby'.", date: "Nov 26, 3:00 PM" },
+    { title: "Neighborhood Clean-Up", description: "Collect trash and beautify streets.", date: "Nov 27, 9:00 AM" }
+  ];
+
+  function joinEvent(event) {
+    alert(`You joined: ${event.title}`);
+  }
+
+  function handleFabClick() {
+    alert("Create a new event (prototype placeholder)");
+  }
 </script>
 
-<main>
-  <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+<main class="container">
+  {#each events as event}
+    <EventCard 
+      title={event.title} 
+      description={event.description} 
+      date={event.date} 
+      onJoin={() => joinEvent(event)} />
+  {/each}
 
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <FloatingButton icon="+" onClick={handleFabClick}/>
+  <BottomNav/>
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
+  .container {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 100vh;
+    background: #f5f5f5;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
   }
 </style>
