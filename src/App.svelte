@@ -4,7 +4,8 @@
   import Home from './lib/Home.svelte';
   import Donation from './lib/Donation.svelte';
   import Success from './lib/Success.svelte';
-  import Map from './lib/Map.svelte'; // <-- Import the new Map
+  import Map from './lib/Map.svelte';
+  import Profile from './lib/Profile.svelte'; // <-- Import the new file
   import BottomNav from './lib/components/BottomNav.svelte';
 </script>
 
@@ -27,6 +28,10 @@
     
   {:else if $currentScreen === 'map'}
     <Map /> 
+    <BottomNav />
+
+  {:else if $currentScreen === 'profile'}
+    <Profile />
     <BottomNav />
   {/if}
 </div>

@@ -1,10 +1,10 @@
 <script>
-  import { currentScreen, pantriesStore } from '../stores.js';
+  import { currentScreen, pantriesStore, userStatsStore } from '../stores.js';
 
   // STEPS: 0=Pantry, 1=Category, 2=Items, 3=Delivery, 4=Success
   let step = 0; 
   let selectedPantryId = null;
-  let deliveryMethod = 'dropoff'; // 'dropoff' or 'pickup'
+  let deliveryMethod = 'dropoff'; 
 
   // Configuration
   const categories = [
@@ -60,7 +60,7 @@
   function submitDonation() {
     if (!selectedPantryId) return;
 
-    // UPDATE THE STORE
+    // 1. UPDATE PANTRY INVENTORY
     pantriesStore.update(currentPantries => {
       return currentPantries.map(p => {
         if (p.id === selectedPantryId) {
@@ -75,6 +75,40 @@
         }
         return p;
       });
+    });
+
+    // 2. UPDATE USER PROFILE STATS
+    const totalItems = Object.values(quantities).reduce((sum, qty) => sum + qty, 0);
+    
+    // Create a summary string (e.g., "Beans x2, Rice x1")
+    const summaryString = Object.entries(quantities)
+      .map(([name, qty]) => `${name} x${qty}`)
+      .join(", ");
+
+    // Find pantry name for history
+    let pantryName = "Unknown Pantry";
+    const unsub = pantriesStore.subscribe(val => {
+       const p = val.find(x => x.id === selectedPantryId);
+       if(p) pantryName = p.name;
+    });
+    unsub();
+
+    // Update the User Store
+    userStatsStore.update(stats => {
+      return {
+        ...stats,
+        impact: stats.impact + totalItems,
+        points: stats.points + (totalItems * 10), // 10 pts per item
+        history: [
+          {
+            id: Date.now(),
+            pantry: pantryName,
+            date: "Just now",
+            items: summaryString
+          },
+          ...stats.history // Keep old history
+        ]
+      };
     });
 
     step = 4; // Go to success
@@ -206,7 +240,7 @@
       {/if}
 
       <div class="summary-box">
-        <p>Inventory updated successfully.</p>
+        <p>Your impact score increased!</p>
       </div>
 
       <button class="btn-primary" on:click={finish}>Return Home</button>
@@ -263,7 +297,6 @@
   .d-info h3 { margin: 0; font-size: 16px; color: var(--color-espresso); }
   .d-info p { margin: 4px 0 0 0; font-size: 13px; color: var(--color-taupe); }
   .radio { font-size: 20px; color: var(--color-espresso); margin-left: 10px; }
-
 
   /* Success & Footer */
   .success-view { text-align: center; padding-top: 40px; }
