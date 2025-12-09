@@ -1,45 +1,53 @@
 <script>
   import { currentScreen } from '../stores.js';
-  
-  const categories = [
-    { name: "Canned Goods", icon: "🥫" },
-    { name: "Dry Goods", icon: "🍝" },
-    { name: "Baby Supplies", icon: "🍼" },
-    { name: "Other", icon: "💬" }
-  ];
 </script>
 
-<div class="page">
-  <div class="header">
-     <button on:click={() => currentScreen.set('home')}>Close</button>
+<div class="content">
+  <h2>Donate Items</h2>
+  <p>Select what you would like to give today.</p>
+
+  <div class="form-group">
+    <label>Item Name</label>
+    <input type="text" placeholder="e.g. Canned Beans" />
   </div>
+
+  <button class="btn-donate" on:click={() => currentScreen.set('success')}>
+    Confirm Donation
+  </button>
   
-  <h2>What are you donating?</h2>
-  
-  <div class="grid">
-    {#each categories as cat}
-      <div class="tile" on:click={() => currentScreen.set('success')}>
-        <div class="icon">{cat.icon}</div>
-        <span>{cat.name}</span>
-      </div>
-    {/each}
-  </div>
+  <button class="btn-back" on:click={() => currentScreen.set('home')}>
+    Cancel
+  </button>
 </div>
 
 <style>
-  .page { padding: 20px; }
-  .header { text-align: right; margin-bottom: 20px; }
-  .header button { background: none; border: none; font-size: 16px; cursor: pointer; color: #666; }
+  h2 { color: var(--color-espresso); margin-bottom: 10px; }
+  p { color: var(--color-taupe); margin-bottom: 30px; }
   
-  h2 { text-align: center; margin-bottom: 40px; color: #2C3E2D; }
+  .form-group { margin-bottom: 20px; }
   
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-  .tile {
-    background: #E8F3E8; border-radius: 15px; aspect-ratio: 1;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    cursor: pointer; transition: transform 0.1s;
+  input {
+    width: 100%;
+    padding: 15px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-sand);
+    background: var(--color-ivory);
+    box-sizing: border-box;
   }
-  .tile:active { transform: scale(0.98); background: #dcebdc; }
-  .icon { font-size: 40px; margin-bottom: 10px; }
-  span { font-weight: 600; color: #2C3E2D; text-align: center; font-size: 14px; }
+  
+  .btn-donate {
+    background: var(--color-taupe);
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border-radius: var(--radius-md);
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .btn-back {
+    background: transparent;
+    color: var(--color-taupe);
+    width: 100%;
+    padding: 10px;
+  }
 </style>

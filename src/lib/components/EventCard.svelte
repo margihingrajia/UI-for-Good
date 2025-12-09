@@ -1,60 +1,59 @@
 <script>
-  export let title = "Event Title";
-  export let description = "Event description here";
-  export let date = "Date/Time";
-  export let onJoin = () => {};
+  export let name = "";
+  export let address = "";
+  export let distance = "";
+  // New prop to handle clicks
+  export let onClick = () => {};
 </script>
 
-<div class="event-card">
-  <h3>{title}</h3>
-  <p>{description}</p>
-  <p class="date">{date}</p>
-  <button on:click={onJoin}>Join Event</button>
-</div>
+<button class="pantry-card" on:click={onClick}>
+  <div class="info">
+    <h3>{name}</h3>
+    <p>{address}</p>
+  </div>
+  <div class="meta">
+    <span class="distance">{distance}</span>
+  </div>
+</button>
 
 <style>
- .event-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 18px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: transform 0.2s ease;
-}
-
-.event-card:hover {
-  transform: translateY(-2px);
-}
-
-.event-card h3 {
-  font-size: 18px;
-  color: #111;
-}
-
-.event-card p {
-  font-size: 14px;
-  color: #555;
-}
-
-.event-card .date {
-  font-size: 13px;
-  color: #888;
-}
-
-.event-card button {
-  margin-top: 10px;
-  padding: 10px 16px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-}
-
-.event-card button:hover {
-  background-color: #1e7e34;
-}
-
+  .pantry-card {
+    background: var(--color-ivory);
+    border-bottom: 1px solid var(--color-sand);
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .pantry-card:hover {
+    background: #FDFCF5; /* Slightly lighter on hover */
+  }
+  .pantry-card:first-child {
+    border-top-left-radius: var(--radius-md);
+    border-top-right-radius: var(--radius-md);
+  }
+  .pantry-card:last-child {
+    border-bottom-left-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+    border-bottom: none;
+  }
+  h3 {
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: var(--color-espresso);
+  }
+  p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--color-taupe);
+  }
+  .distance {
+    font-size: 12px;
+    color: var(--color-taupe);
+    font-weight: 500;
+  }
 </style>

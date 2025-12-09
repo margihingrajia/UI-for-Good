@@ -2,35 +2,31 @@
   import { currentScreen } from '../stores.js';
 </script>
 
-<div class="container">
-  <div class="content">
-    <div class="check-circle">✓</div>
-    <h1>Thank You!</h1>
-    <p>Your donation to Community Table is confirmed.</p>
-  </div>
-  <button class="btn-done" on:click={() => currentScreen.set('home')}>Done</button>
+<div class="success-screen">
+  <div class="icon">🎉</div>
+  <h2>Thank you!</h2>
+  <p>Your donation helps feed the community.</p>
+  <button on:click={() => currentScreen.set('home')}>Back to Home</button>
 </div>
 
 <style>
-/* In src/lib/Welcome.svelte */
-.container {
-  height: 100%; /* Changed from 100vh */
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 60px 24px 40px; /* Added top padding for Notch */
-  background-color: #E8F3E8;
-  box-sizing: border-box;
-}
-  .content { margin-top: 100px; }
-  .check-circle { 
-    width: 80px; height: 80px; background: #88B089; color: white; font-size: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+  .success-screen {
+    padding: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
   }
-  h1 { color: #2C3E2D; }
-  p { color: #666; line-height: 1.5; }
-  
-  .btn-done {
-    background-color: #88B089; color: white; width: 100%; border: none; padding: 16px; border-radius: 30px; font-size: 16px; font-weight: bold; cursor: pointer;
+  .icon { font-size: 60px; margin-bottom: 20px; }
+  h2 { color: var(--color-espresso); }
+  p { color: var(--color-taupe); margin-bottom: 30px; }
+  button {
+    padding: 12px 24px;
+    background: var(--color-sand);
+    border-radius: var(--radius-md);
+    color: var(--color-espresso);
+    font-weight: bold;
   }
 </style>
