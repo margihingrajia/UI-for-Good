@@ -5,7 +5,7 @@ export const currentScreen = writable('welcome');
 export const activeTab = writable('home');
 export const selectedPantry = writable(null);
 
-// Sorting logic for pantries
+// Sorting logic
 const sortedPantries = [...initialPantries].sort((a, b) => {
   const distA = parseFloat(a.distance);
   const distB = parseFloat(b.distance);
@@ -14,10 +14,8 @@ const sortedPantries = [...initialPantries].sort((a, b) => {
 
 export const pantriesStore = writable(sortedPantries);
 
-// ... existing imports and pantriesStore ...
-
 export const userStatsStore = writable({
-  name: "Margaret Williams",
+  name: "Alex Doe",
   joined: "Member since 2023",
   impact: 12, 
   points: 350, 
@@ -27,3 +25,6 @@ export const userStatsStore = writable({
     { id: 3, pantry: "UC Bearcats Pantry", date: "Aug 05", items: "Hygiene Pack x1" }
   ]
 });
+
+// --- THIS IS THE MISSING PIECE ---
+export const preSelectedPantryId = writable(null);

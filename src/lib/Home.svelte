@@ -3,15 +3,24 @@
   import EventCard from './components/EventCard.svelte';
   import PantryDetails from './PantryDetails.svelte';
   import Logo from './components/Logo.svelte';
-  // IMPORT activeTab HERE
-  import { currentScreen, selectedPantry, pantriesStore, activeTab } from '../stores.js';
+  import { currentScreen, selectedPantry, pantriesStore, activeTab, preSelectedPantryId } from '../stores.js';
 
   let viewMode = 'list';
+  let activeMode = 'find'; // 'find' or 'donate'
 
-  // Helper function to switch everything to Map mode
   function goToMap() {
     currentScreen.set('map');
-    activeTab.set('map'); // <--- This highlights the icon in the navbar
+    activeTab.set('map');
+  }
+
+  // LOGIC: If in 'find' mode, show popup. If in 'donate' mode, go to form.
+  function handlePantryClick(pantry) {
+    if (activeMode === 'find') {
+      selectedPantry.set(pantry);
+    } else {
+      preSelectedPantryId.set(pantry.id); // Save the ID
+      currentScreen.set('donation');      // Switch screens
+    }
   }
 </script>
 
@@ -21,26 +30,35 @@
        <Logo />
        <span class="app-name">PantryPop</span>
     </div>
+    <div class="user">❤️</div>
   </header>
 
-<section class="actions">
+  <section class="actions">
     <Card 
       title="Find Food" 
       icon="🍽️" 
-      onClick={() => console.log('Find')} 
-      primary={true} 
+      onClick={() => activeMode = 'find'} 
+      primary={activeMode === 'find'} 
     />
     
     <Card 
       title="Donate Food" 
       icon="🥫" 
-      onClick={() => currentScreen.set('donation')} 
+      onClick={() => activeMode = 'donate'} 
+      filled={activeMode === 'donate'} 
     />
   </section>
 
+  <p class="mode-hint">
+    {#if activeMode === 'find'}
+      Tap a pantry below to view details.
+    {:else}
+      Tap a pantry below to <b>start a donation</b>.
+    {/if}
+  </p>
+
   <div class="toggle-container">
     <button class:active={viewMode === 'list'} on:click={() => viewMode = 'list'}>List View</button>
-    
     <button class:active={viewMode === 'map'} on:click={goToMap}>Map</button>
   </div>
 
@@ -52,97 +70,33 @@
         name={pantry.name} 
         address={pantry.address} 
         distance={pantry.distance}
-        onClick={() => selectedPantry.set(pantry)} 
+        onClick={() => handlePantryClick(pantry)} 
       />
     {/each}
   </div>
 
-  {#if $selectedPantry}
+  {#if $selectedPantry && activeMode === 'find'}
     <div class="overlay"> <PantryDetails /> </div>
   {/if}
 </div>
 
 <style>
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .logo-container { display: flex; align-items: center; gap: 10px; }
+  .app-name { font-weight: bold; color: var(--color-espresso); font-size: 20px; }
   
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .app-name {
-    font-weight: bold;
-    color: var(--color-espresso);
-    font-size: 20px;
-  }
-
-  .actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 24px;
-  }
-
-  .toggle-container {
-    background: var(--color-sand);
-    border-radius: var(--radius-md);
-    padding: 4px;
-    display: flex;
-    margin-bottom: 20px;
-    border: none; 
-  }
-
-  .toggle-container button {
-    flex: 1;
-    padding: 8px;
-    border-radius: 8px;
-    background: transparent;
-    color: var(--color-espresso);
-    font-weight: 600;
-    cursor: pointer;
-    border: none; 
-    outline: none;
-  }
-
-  .toggle-container button.active {
-    background: var(--color-ivory);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-
-  .section-title {
-    margin-bottom: 10px;
-    color: var(--color-espresso);
-  }
-
-  .list-container {
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    border: none; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    background: var(--color-ivory);
-    margin-bottom: 20px;
-  }
-
-  .overlay { 
-    position: absolute;
-    bottom: 90px; 
-    left: 0; 
-    width: 100%; 
-    z-index: 1000; 
-    display: flex; 
-    justify-content: center; 
-    padding: 0 20px; 
-    box-sizing: border-box; 
-    pointer-events: none; 
-  }
+  .actions { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 10px; }
   
-  .overlay > :global(*) {
-    pointer-events: auto;
-  }
+  .mode-hint { font-size: 13px; color: var(--color-taupe); margin-bottom: 15px; text-align: center; height: 18px; }
+  .mode-hint b { color: var(--color-espresso); }
+
+  .toggle-container { background: var(--color-sand); border-radius: var(--radius-md); padding: 4px; display: flex; margin-bottom: 20px; border: none; }
+  .toggle-container button { flex: 1; padding: 8px; border-radius: 8px; background: transparent; color: var(--color-espresso); font-weight: 600; cursor: pointer; border: none; outline: none; }
+  .toggle-container button.active { background: var(--color-ivory); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  
+  .section-title { margin-bottom: 10px; color: var(--color-espresso); }
+  .list-container { border-radius: var(--radius-md); overflow: hidden; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.05); background: var(--color-ivory); margin-bottom: 20px; }
+  
+  .overlay { position: absolute; bottom: 90px; left: 0; width: 100%; z-index: 1000; display: flex; justify-content: center; padding: 0 20px; box-sizing: border-box; pointer-events: none; }
+  .overlay > :global(*) { pointer-events: auto; }
 </style>

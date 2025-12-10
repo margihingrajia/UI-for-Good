@@ -1,8 +1,7 @@
 <script>
-  import { selectedPantry, pantriesStore } from '../stores.js';
+  // Import the navigation stores
+  import { selectedPantry, pantriesStore, currentScreen, preSelectedPantryId } from '../stores.js';
   
-  // We need to find the live data for the selected pantry from the store
-  // because $selectedPantry might be a stale copy from when we clicked it.
   $: livePantry = $pantriesStore.find(p => p.id === $selectedPantry?.id);
 
   function close() {
@@ -12,7 +11,16 @@
   function getDirections() {
     if (!livePantry) return;
     const [lat, lng] = livePantry.coords;
-    window.open(`https://www.google.com/maps/dir/?api=1&destination=$${lat},${lng}`, '_blank');
+    window.open(`http://googleusercontent.com/maps.google.com/3{lat},${lng}`, '_blank');
+  }
+
+  // --- NEW DONATION FUNCTION ---
+  function handleDonate() {
+    if (!livePantry) return;
+    // 1. Pre-select this pantry
+    preSelectedPantryId.set(livePantry.id);
+    // 2. Switch to donation screen
+    currentScreen.set('donation');
   }
 </script>
 
@@ -46,9 +54,16 @@
       </div>
     </div>
 
-    <button class="action-btn" on:click={getDirections}>
-      Get Directions
-    </button>
+    <div class="actions-row">
+      <button class="action-btn outline" on:click={getDirections}>
+        Directions
+      </button>
+      
+      <button class="action-btn solid" on:click={handleDonate}>
+        Donate
+      </button>
+    </div>
+
   {/if}
 </div>
 
@@ -58,8 +73,15 @@
     border-radius: 20px; padding: 20px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: relative;
     border: 1px solid var(--color-sand); pointer-events: auto;
+    animation: slideUp 0.3s ease-out;
   }
-  .close-btn { position: absolute; top: 10px; right: 15px; font-size: 24px; background: none; color: var(--color-taupe); }
+  
+  @keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .close-btn { position: absolute; top: 10px; right: 15px; font-size: 24px; background: none; color: var(--color-taupe); cursor: pointer; border: none; }
   h2 { color: var(--color-espresso); margin: 0 0 5px 0; font-size: 18px; padding-right: 20px; }
   .address { color: var(--color-taupe); font-size: 13px; margin-bottom: 20px; }
 
@@ -69,5 +91,37 @@
   .inv-item .count { font-weight: bold; color: var(--color-espresso); font-size: 16px; }
   .inv-item .label { font-size: 10px; text-transform: uppercase; color: var(--color-taupe); margin-top: 2px; }
 
-  .action-btn { width: 100%; background: var(--color-espresso); color: white; padding: 12px; border-radius: 12px; font-weight: bold; }
+  /* --- NEW BUTTON STYLES --- */
+  .actions-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .action-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.1s;
+  }
+
+  .action-btn:active {
+    transform: scale(0.98);
+  }
+
+  /* Style 1: Solid Brown (Primary) */
+  .action-btn.solid {
+    background: var(--color-espresso);
+    color: white;
+    border: none;
+  }
+
+  /* Style 2: Outline Taupe (Secondary) */
+  .action-btn.outline {
+    background: transparent;
+    color: var(--color-espresso);
+    border: 2px solid var(--color-taupe);
+  }
 </style>

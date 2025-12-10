@@ -2,8 +2,8 @@
   export let title = "Card";
   export let icon = "📦";
   export let onClick = () => {};
-  export let primary = false; // The Border Style (Find Food)
-  export let filled = false;  // NEW: The Solid Style (Donate Food)
+  export let primary = false; 
+  export let filled = false;  
 </script>
 
 <button 
@@ -31,30 +31,25 @@
     transition: all 0.2s ease;
   }
   
-  /* Primary = Border Highlight (Find Food) */
-  .action-card.primary {
-    border: 2px solid var(--color-taupe); 
-    background-color: #FDFBF7;
+  /* SHARED ACTIVE STYLE for both Primary (Find) and Filled (Donate) */
+  .action-card.primary, 
+  .action-card.filled {
+    border: 2px solid var(--color-taupe); /* The Taupe Outline */
+    background-color: #FDFBF7; /* Light background */
     transform: scale(1.02);
     box-shadow: 0 6px 12px rgba(84, 73, 63, 0.15);
   }
 
-  /* --- NEW FILLED STYLE (Donate Food) --- */
-  .action-card.filled {
-    background-color: var(--color-taupe); /* Solid Warm Brown */
-    border: 2px solid var(--color-taupe); /* Match border to bg */
-    box-shadow: 0 6px 12px rgba(158, 143, 122, 0.3);
-  }
-
-  /* Change text colors to white when filled */
-  .action-card.filled .title {
-    color: white;
+  /* Reset text/icon colors to default since we removed the solid fill */
+  .action-card.filled .title,
+  .action-card.primary .title {
+    color: var(--color-espresso);
   }
   
-  /* Make the icon slightly transparent white so it's not too harsh */
-  .action-card.filled .icon {
-    filter: brightness(0) invert(1); /* Turns emoji white */
-    opacity: 0.9;
+  .action-card.filled .icon,
+  .action-card.primary .icon {
+    filter: none;
+    opacity: 1;
   }
 
   .action-card:active {
