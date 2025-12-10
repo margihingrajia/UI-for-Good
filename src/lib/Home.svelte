@@ -28,7 +28,7 @@
   <header>
     <div class="logo-container">
        <Logo />
-       <span class="app-name">PantryPop</span>
+       <span class="app-name">Pantry Pop</span>
     </div>
   </header>
 
