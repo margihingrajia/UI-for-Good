@@ -1,0 +1,14 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Heart shape -->
+  <path d="M20 36.6667C20 36.6667 35.8333 25.8333 35.8333 15.8333C35.8333 11.415 32.2517 7.5 27.6667 7.5C23.0817 7.5 20 12.5 20 12.5C20 12.5 16.9183 7.5 12.3333 7.5C7.74833 7.5 4.16666 11.415 4.16666 15.8333C4.16666 25.8333 20 36.6667 20 36.6667Z"
+    stroke="#54493F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Inner plant shifted down -->
+  <g transform="translate(0, 2)">
+    <path d="M20 28.3333V12.5" stroke="#9E8F7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 15.8333C22.5 14.1667 24.1667 12.5 24.1667 12.5C24.1667 12.5 22.5 17.5 20 19.1667" stroke="#9E8F7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 15.8333C17.5 14.1667 15.8333 12.5 15.8333 12.5C15.8333 12.5 17.5 17.5 20 19.1667" stroke="#9E8F7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 22.5C22.5 20.8333 24.1667 19.1667 24.1667 19.1667C24.1667 19.1667 22.5 24.1667 20 25.8333" stroke="#9E8F7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M20 22.5C17.5 20.8333 15.8333 19.1667 15.8333 19.1667C15.8333 19.1667 17.5 24.1667 20 25.8333" stroke="#9E8F7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

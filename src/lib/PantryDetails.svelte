@@ -11,13 +11,18 @@
   function getDirections() {
     if (!livePantry) return;
     const [lat, lng] = livePantry.coords;
-    window.open(`http://googleusercontent.com/maps.google.com/3{lat},${lng}`, '_blank');
+    
+    // --- FIX: Use standard Google Maps Directions URL ---
+    // 'destination' sets the end point. 'api=1' ensures it works across devices.
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+    
+    window.open(url, '_blank');
   }
 
-  // --- NEW DONATION FUNCTION ---
+  // --- DONATION FUNCTION ---
   function handleDonate() {
     if (!livePantry) return;
-    // 1. Pre-select this pantry
+    // 1. Pre-select this pantry so the next screen knows who receives the $
     preSelectedPantryId.set(livePantry.id);
     // 2. Switch to donation screen
     currentScreen.set('donation');
@@ -91,7 +96,7 @@
   .inv-item .count { font-weight: bold; color: var(--color-espresso); font-size: 16px; }
   .inv-item .label { font-size: 10px; text-transform: uppercase; color: var(--color-taupe); margin-top: 2px; }
 
-  /* --- NEW BUTTON STYLES --- */
+  /* --- BUTTON STYLES --- */
   .actions-row {
     display: flex;
     gap: 10px;
@@ -111,14 +116,12 @@
     transform: scale(0.98);
   }
 
-  /* Style 1: Solid Brown (Primary) */
   .action-btn.solid {
     background: var(--color-espresso);
     color: white;
     border: none;
   }
 
-  /* Style 2: Outline Taupe (Secondary) */
   .action-btn.outline {
     background: transparent;
     color: var(--color-espresso);

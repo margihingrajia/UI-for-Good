@@ -15,7 +15,7 @@ const sortedPantries = [...initialPantries].sort((a, b) => {
 export const pantriesStore = writable(sortedPantries);
 
 export const userStatsStore = writable({
-  name: "Alex Doe",
+  name: "Margaret Williams",
   joined: "Member since 2023",
   impact: 12, 
   points: 350, 

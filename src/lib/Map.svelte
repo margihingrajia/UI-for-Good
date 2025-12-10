@@ -51,7 +51,6 @@
        <Logo />
        <span class="app-name">PantryPop</span>
     </div>
-    <!-- <div class="user">❤️</div> -->
   </header>
 
   <div class="toggle-wrapper">

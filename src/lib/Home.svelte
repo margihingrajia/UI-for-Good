@@ -30,7 +30,6 @@
        <Logo />
        <span class="app-name">PantryPop</span>
     </div>
-    <div class="user">❤️</div>
   </header>
 
   <section class="actions">
