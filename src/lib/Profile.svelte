@@ -4,7 +4,7 @@
 
 <div class="content">
   <div class="profile-header">
-    <div class="avatar">AD</div>
+    <div class="avatar">MW</div>
     <h2>{$userStatsStore.name}</h2>
     <p>{$userStatsStore.joined}</p>
   </div>

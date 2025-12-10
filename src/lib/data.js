@@ -64,7 +64,7 @@ export const initialPantries = [
   },
   { 
     id: 8, 
-    name: "St. George Food Pantry", 
+    name: "St. Michael Food Pantry", 
     address: "108 Calhoun St, Cincinnati, OH", 
     coords: [39.1283, -84.5147], 
     hours: "Fri 12-2", 
@@ -88,5 +88,24 @@ export const initialPantries = [
     hours: "10am - 1pm", 
     distance: "12.5 mi",
     inventory: { canned: 70, produce: 25, grains: 55, hygiene: 12 }
+  },
+  // --- NEW UC PANTRIES ---
+  { 
+    id: 11, 
+    name: "UC Bearcats Pantry", 
+    address: "2639 Clifton Ave (Stratford Heights), Cincinnati, OH", 
+    coords: [39.1345, -84.5195], 
+    hours: "Mon-Fri 10-4", 
+    distance: "0.5 mi",
+    inventory: { canned: 150, produce: 60, grains: 100, hygiene: 80 }
+  },
+  { 
+    id: 12, 
+    name: "St. Monica-St. George UC", 
+    address: "328 W McMillan St, Cincinnati, OH", 
+    coords: [39.1288, -84.5218], 
+    hours: "Tue/Wed 5-7pm", 
+    distance: "0.7 mi",
+    inventory: { canned: 45, produce: 15, grains: 20, hygiene: 10 }
   }
 ];

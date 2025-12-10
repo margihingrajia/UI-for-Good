@@ -14,15 +14,16 @@ const sortedPantries = [...initialPantries].sort((a, b) => {
 
 export const pantriesStore = writable(sortedPantries);
 
-// --- NEW USER STORE ---
+// ... existing imports and pantriesStore ...
+
 export const userStatsStore = writable({
-  name: "Alex Doe",
+  name: "Margaret Williams",
   joined: "Member since 2023",
-  impact: 12, // Starting donations
-  points: 350, // Starting karma
+  impact: 12, 
+  points: 350, 
   history: [
-    { id: 1, pantry: "Freestore Foodbank", date: "Oct 24", items: "Canned Goods x5" },
-    { id: 2, pantry: "SEM Food Pantry", date: "Sep 12", items: "Fresh Produce x3" },
-    { id: 3, pantry: "Mercy Neighborhood", date: "Aug 05", items: "Hygiene Pack x1" }
+    { id: 1, pantry: "UC Bearcats Pantry", date: "Oct 24", items: "Canned Goods x5" },
+    { id: 2, pantry: "St. Monica-St. George (UC)", date: "Sep 12", items: "Fresh Produce x3" },
+    { id: 3, pantry: "UC Bearcats Pantry", date: "Aug 05", items: "Hygiene Pack x1" }
   ]
 });
