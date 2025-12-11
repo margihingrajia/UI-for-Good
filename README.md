@@ -38,6 +38,11 @@
 
 ---
 
+## 📸 Documentation:
+
+https://docs.google.com/document/d/1fZZSWxT6pFdsVj8R_MbljK3b5rBHD4f9luKoOV5bzTE/edit?usp=sharing
+
+---
 ## 📸 Screenshots
 
 | Welcome | Find Food | Map View |
